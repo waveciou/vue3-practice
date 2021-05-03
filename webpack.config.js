@@ -7,7 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: path.resolve(__dirname, './src/resources/js/main.js')
+    main: path.resolve(__dirname, './src/resources/js/main.js'),
+    todolist: path.resolve(__dirname, './src/resources/js/todolist.js')
   },
   output: {
     filename: './resources/js/[name].js',
@@ -72,10 +73,15 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: './resources/css/[name].css'
     }),
-    // new IgnoreEmitPlugin(['reset.js']),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
+      minify: true,
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'todolist.html',
+      template: './src/todolist.html',
       minify: true,
       inject: false
     }),

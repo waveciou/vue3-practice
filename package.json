@@ -20,6 +20,7 @@
   "homepage": "https://github.com/waveciou/vue3-practice#readme",
   "devDependencies": {
     "@babel/core": "^7.14.0",
+    "@babel/eslint-parser": "^7.13.14",
     "@babel/preset-env": "^7.14.0",
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
