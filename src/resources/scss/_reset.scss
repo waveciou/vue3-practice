@@ -113,8 +113,8 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   font-size: 16px;
-  font-family: 'Noto Sans TC', '微軟正黑體', 'Microsoft JhengHei', sans-serif, arial;
-  color: #444;
+  font-family: $font-family;
+  color: $color-blue-green;
   background-color: $color-green;
   line-height: 1.6em;
   letter-spacing: 1px;
@@ -164,4 +164,8 @@ button {
   line-height: 1;
   font: inherit;
   cursor: pointer;
+}
+
+input {
+  font-family: $font-family;
 }

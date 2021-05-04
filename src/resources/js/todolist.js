@@ -8,7 +8,11 @@ import '../scss/todolist.scss';
     template: `
       <div class="todolist">
         <div class="todolist__header">
-          <input type="text" v-model="inputValue">
+          <input
+            class="todolist__input"
+            type="text"
+            v-model="inputValue"
+          >
           <button
             class="submit-btn"
             @click.stop="addTodoHandler"
@@ -32,7 +36,6 @@ import '../scss/todolist.scss';
             </li>
           </ul>
         </div>
-        <div>{{ todolist }}</div>
       </div>
     `,
     setup() {
@@ -56,6 +59,6 @@ import '../scss/todolist.scss';
       };
     }
   };
-  
+
   const vm = Vue.createApp(app).mount('#app');
 })(Vue);
