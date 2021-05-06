@@ -22,7 +22,6 @@ import '../scss/todolist.scss';
           <ul class="todolist__list">
             <li v-for="todoItem of todolist" :key="todoItem.id">
               <div class="todolist__item">
-                <div class="todolist__title">{{ todoItem.value }}</div>
                 <div class="todolist__checkbox">
                   <input
                     type="checkbox"
@@ -30,8 +29,9 @@ import '../scss/todolist.scss';
                     :checked="todoItem.checked === true"
                     v-model="todoItem.checked"
                   >
-                  <label for="todoItem.id"></label>
+                  <label :for="todoItem.id"></label>
                 </div>
+                <div class="todolist__title">{{ todoItem.value }}</div>
               </div>
             </li>
           </ul>
@@ -43,6 +43,11 @@ import '../scss/todolist.scss';
       const todolist = reactive([]);
 
       const addTodoHandler = () => {
+        if (inputValue.value === '') {
+          alert('Please enter something text.');
+          return false;
+        }
+
         const date = new Date();
 
         todolist.push({
@@ -50,6 +55,8 @@ import '../scss/todolist.scss';
           value: inputValue.value,
           checked: false
         });
+
+        inputValue.value = '';
       };
 
       return {
