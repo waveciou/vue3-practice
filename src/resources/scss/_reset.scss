@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset 'UTF-8';
 @import './utils/_utils.scss';
 
 // * ==========================================================================
@@ -158,6 +158,8 @@ a {
 button {
   padding: 0;
   margin: 0;
+  font-family: $font-family;
+  background-color: transparent;
   border: none;
   line-height: 1;
   font: inherit;

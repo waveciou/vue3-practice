@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset 'UTF-8';
 
 // * RWD Max Breakpoints
 @mixin max-width($breakpoints) {
@@ -33,4 +33,10 @@
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     @content;
   }
+}
+
+// * Font Awesome
+@mixin font-awesome {
+  font-family: 'Font Awesome 5 solid', sans-serif;
+  font-weight: 900;
 }
