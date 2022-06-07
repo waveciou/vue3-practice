@@ -9,12 +9,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   setup() {
-    const appMessage = "App元件";
+    const appMessage = 'App元件';
     return {
       appMessage,
     };
@@ -23,13 +23,13 @@ export default defineComponent({
 </script>
 
 <style>
-  #app {
-    text-align: center;
-    margin-top: 50px;
-  }
+#app {
+  text-align: center;
+  margin-top: 50px;
+}
 
-  a {
-    margin: 30px;
-    display: inline-block;
-  }
+a {
+  margin: 30px;
+  display: inline-block;
+}
 </style>
