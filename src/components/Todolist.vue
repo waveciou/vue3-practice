@@ -1,5 +1,22 @@
-@charset 'UTF-8';
-@import './utils/_utils.scss';
+<template>
+  <div>Todolist元件</div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'Todolist',
+  setup() {
+    return {
+      // 返回的資料
+    };
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+@import '../src/scss/utils/_utils.scss';
 
 .todolist {
   width: 100%;
@@ -149,3 +166,4 @@
     color: $color-yellow;
   }
 }
+</style>

@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import Home from '../components/Home.vue';
-import About from '../components/About.vue';
+import Todolist from '../components/Todolist.vue';
 import User from '../components/User.vue';
 
 const routes = [
@@ -11,9 +11,9 @@ const routes = [
     component: Home,
   },
   {
-    path: '/about',
-    name: 'about',
-    component: About,
+    path: '/todolist',
+    name: 'todolist',
+    component: Todolist,
   },
   {
     path: '/user/:uid',

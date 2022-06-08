@@ -10,7 +10,7 @@ module.exports = {
     // 'vue/no-unused-vars': 'error'
     'vue/require-default-prop': 'off',
     'vue/multi-word-component-names': 'off',
-    indent: ['error', 2],
+    indent: ['off'],
     'linebreak-style': ['off', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
