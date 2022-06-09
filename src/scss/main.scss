@@ -1,0 +1,50 @@
+@charset 'UTF-8';
+@import './utils/_utils.scss';
+@import './_reset.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;600&display=fallback');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://example.com/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+  // url('https://example.com/MaterialIcons-Regular.woff2') format('woff2'),
+  // url('https://example.com/MaterialIcons-Regular.woff') format('woff'),
+  // url('https://example.com/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-size: 16px;
+  font-family: $font-family;
+  color: $color-blue-green;
+  background-color: $color-green;
+  line-height: 1.6em;
+  letter-spacing: 1px;
+  -webkit-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+}
+
+h1 {
+  margin-top: 1rem;
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2em;
+  margin-bottom: 1rem;
+}
+
+.wrap {
+  width: calc(100% - 20px);
+  max-width: 640px;
+  margin: auto;
+
+  @include min-width(640px + 20px) {
+    width: 100%;
+  }
+}
