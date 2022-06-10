@@ -6,7 +6,7 @@ import User from '../components/User.vue';
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: Home,
   },
@@ -19,6 +19,10 @@ const routes = [
     path: '/user/:uid',
     name: 'user',
     component: User,
+  },
+  {
+    path: '/*',
+    redirect: '/',
   },
 ];
 
