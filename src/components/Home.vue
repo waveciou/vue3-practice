@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="tw-pl-6 tw-my-8 tw-list-disc">
+    <ul class="tw-pl-6 tw-mb-8 tw-list-disc">
       <li>
         <router-link class="tw-inline-block tw-text-lg" to="/todolist">
           Todolist
