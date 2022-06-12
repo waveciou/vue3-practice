@@ -1,6 +1,11 @@
 <template>
-  <h1>{{ titleRef }}</h1>
-  <div class="wrap">
+  <div
+    class="tw-w-[calc(100%-20px)] tw-max-w-[640px] tw-m-auto desktop:tw-w-full"
+  >
+    <router-link to="/">Back To Home</router-link>
+    <h1 class="tw-my-4 tw-text-center tw-text-4xl tw-font-semibold">
+      {{ titleRef }}
+    </h1>
     <router-view />
   </div>
 </template>

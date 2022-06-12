@@ -136,6 +136,13 @@ strong {
 
 a {
   text-decoration: none;
+
+  @include min-width(1025px) {
+    &:hover,
+    &:focus {
+      color: $color-yellow;
+    }
+  }
 }
 
 input,
@@ -144,6 +151,7 @@ textarea,
 select {
   padding: 0;
   margin: 0;
+  color: $color-blue-green;
   font-family: $font-family;
   background-color: transparent;
   border: none;
