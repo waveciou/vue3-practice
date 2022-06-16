@@ -7,6 +7,9 @@ module.exports = {
   ],
   darkMode: false,
   theme: {
+    minWidth: {
+      '120': '120px',
+    },
     screens: {
       desktop: '660px',
       'real-desktop': '1025px',
@@ -19,7 +22,11 @@ module.exports = {
       gray: '#CCD1D9',
       yellow: '#FFEB3B',
     },
-    extend: {},
+    extend: {
+      zIndex: {
+        'hidden': '-9999',
+      },
+    },
   },
   variants: {
     extend: {},

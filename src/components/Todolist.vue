@@ -1,59 +1,86 @@
 <template>
-  <div class="todolist">
-    <div class="todolist__header">
+  <div class="tw-w-full tw-m-auto">
+    <div class="tw-my-6 tw-flex tw-items-center desktop:tw-my-8">
       <input
         v-model.trim="inputValue"
-        class="todolist__input"
+        class="tw-w-full tw-h-10 tw-py-1 tw-px-3 tw-m-0 tw-inline-block tw-relative tw-text-md tw-leading-8 tw-text-blue-green tw-bg-white tw-border tw-border-white tw-border-solid tw-rounded tw-tracking-wide tw-grow tw-basis-0 tw-appearance-none"
         type="text"
         placeholder="Please enter your todo item"
       />
-      <button class="btn submit-btn" @click.stop="addTodoHandler">
+      <button
+        class="tw-h-10 tw-p-3 tw-leading-4 tw-text-white tw-bg-blue-green tw-rounded tw-ml-2"
+        @click.stop="addTodoHandler"
+      >
         Add Todo
       </button>
     </div>
-    <div class="todolist__body">
-      <div v-if="todolist.length > 0" class="todolist__types-control">
+    <div>
+      <div
+        v-if="todolist.length > 0"
+        class="tw-w-full tw-flex tw-items-center tw-overflow-x-auto tw-overflow-y-hidden tw-mb-4 desktop:tw-justify-center"
+      >
         <button
-          class="btn select-btn"
+          class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
           :class="{
-            'current': todoType !== 'UNCHECKED' && todoType !== 'CHECKED',
+            'tw-text-yellow':
+              todoType !== 'UNCHECKED' && todoType !== 'CHECKED',
           }"
           @click.stop="todoType = 'ALL'"
         >
           ALL
         </button>
         <button
-          class="btn select-btn"
-          :class="{ 'current': todoType === 'CHECKED' }"
+          class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
+          :class="{ 'tw-text-yellow': todoType === 'CHECKED' }"
           @click.stop="todoType = 'CHECKED'"
         >
           CHECKED
         </button>
         <button
-          class="btn select-btn"
-          :class="{ 'current': todoType === 'UNCHECKED' }"
+          class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
+          :class="{ 'tw-text-yellow': todoType === 'UNCHECKED' }"
           @click.stop="todoType = 'UNCHECKED'"
         >
           UNCHECKED
         </button>
       </div>
-      <ul class="todolist__list">
-        <li v-for="todoItem of todolistByTypes" :key="todoItem.id">
-          <div class="todolist__item">
-            <div class="todolist__checkbox">
-              <input
-                :id="todoItem.id"
-                v-model="todoItem.checked"
-                type="checkbox"
-                :checked="todoItem.checked === true"
+      <ul>
+        <li
+          v-for="todoItem of todolistByTypes"
+          :key="todoItem.id"
+          class="tw-mb-4"
+        >
+          <div
+            class="tw-py-3 tw-pl-3 tw-pr-8 tw-relative tw-bg-white tw-border tw-border-white tw-border-solid tw-rounded tw-overflow-hidden"
+          >
+            <input
+              :id="todoItem.id"
+              v-model="todoItem.checked"
+              type="checkbox"
+              :checked="todoItem.checked === true"
+              class="tw-w-0 tw-h-0 tw-absolute tw-opacity-0 tw-invisible tw-z-hidden"
+            />
+            <label
+              :for="todoItem.id"
+              class="tw-flex tw-items-center tw-cursor-pointer tw-overflow-hidden"
+            >
+              <span
+                v-if="todoItem.checked === false"
+                class="tw-block tw-w-6 tw-h-6 tw-mr-2 before-font-material before:tw-content-['\e835'] before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
               />
-              <label :for="todoItem.id"></label>
-            </div>
-            <div class="todolist__title">{{ todoItem.value }}</div>
+              <span
+                v-else
+                class="tw-block tw-w-6 tw-h-6 tw-mr-2 before-font-material before:tw-content-['\e834'] before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
+              />
+              <span class="tw-block tw-leading-6 tw-break-all">
+                {{ todoItem.value }}
+              </span>
+            </label>
             <button
-              class="delete-btn"
+              type="button"
+              class="before-font-material tw-absolute tw-top-3 tw-right-2 before:tw-content-['\e872'] before:tw-block before:tw-w-5 before:tw-h-6 before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
               @click.stop="deleteTodoHandler(todoItem.id)"
-            ></button>
+            />
           </div>
         </li>
       </ul>
@@ -135,154 +162,4 @@
 
 <style lang="scss" scoped>
   @import '../src/scss/utils/_utils.scss';
-
-  .todolist {
-    width: 100%;
-    margin: auto;
-  }
-
-  .todolist__header {
-    margin: 1.5rem 0;
-    display: flex;
-    align-items: center;
-
-    @include min-width(640px + 20px) {
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-    }
-  }
-
-  .todolist__input {
-    width: 100%;
-    height: 40px;
-    padding: 5px 12px;
-    margin: 0;
-    display: inline-block;
-    position: relative;
-    font-size: 1rem;
-    color: $color-blue-green;
-    background-color: $color-white;
-    border: 1px $color-white solid;
-    border-radius: 5px;
-    outline: none;
-    transform: translateZ(0);
-    line-height: 30px;
-    letter-spacing: 1px;
-    flex-grow: 1;
-    flex-basis: 0;
-    appearance: none;
-  }
-
-  .btn {
-    height: 40px;
-    padding: 10px;
-    line-height: 20px;
-    color: $color-white;
-    background-color: $color-blue-green;
-    border-radius: 5px;
-  }
-
-  .submit-btn {
-    margin-left: 10px;
-  }
-
-  .delete-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-
-    &::before {
-      @include font-awesome;
-
-      content: '\f00d';
-      width: 15px;
-      height: 15px;
-      display: block;
-      font-size: 15px;
-      color: $color-blue-green;
-      line-height: 15px;
-    }
-  }
-
-  .todolist__list {
-    > li {
-      margin-bottom: 1rem;
-    }
-  }
-
-  .todolist__item {
-    padding: 10px 30px 10px 10px;
-    display: flex;
-    align-items: baseline;
-    position: relative;
-    background-color: $color-white;
-    border: 1px $color-white solid;
-    border-radius: 3px;
-  }
-
-  .todolist__checkbox {
-    input {
-      width: 0;
-      height: 0;
-      position: absolute;
-      opacity: 0;
-      visibility: none;
-      z-index: -9999;
-
-      &:checked + label::before {
-        color: $color-blue-green;
-      }
-    }
-
-    label::before {
-      @include font-awesome;
-
-      content: '\f00c';
-      width: 15px;
-      height: 15px;
-      margin-right: 10px;
-      display: block;
-      font-size: 80%;
-      text-align: center;
-      color: $color-white;
-      background-color: $color-white;
-      border: 1px $color-gray solid;
-      border-radius: 3px;
-      line-height: 15px;
-      cursor: pointer;
-      box-sizing: border-box;
-    }
-  }
-
-  .todolist__title {
-    word-break: break-all;
-  }
-
-  .todolist__types-control {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    overflow-x: auto;
-    overflow-y: hidden;
-    margin-bottom: 1rem;
-
-    @include min-width(640px + 20px) {
-      justify-content: center;
-    }
-  }
-
-  .select-btn {
-    min-width: 120px;
-    margin: 0 5px;
-    text-align: center;
-
-    @include min-width(640px + 20px) {
-      margin-right: 7px;
-      margin-left: 7px;
-    }
-
-    &.current {
-      color: $color-yellow;
-    }
-  }
 </style>
