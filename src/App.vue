@@ -3,10 +3,15 @@
     class="tw-w-[calc(100%-20px)] tw-max-w-[640px] tw-m-auto desktop:tw-w-full"
   >
     <div
-      class="tw-flex tw-items-center"
+      class="tw-flex tw-items-center tw-my-2"
       :class="{ 'tw-invisible': isHiddenNav === true }"
     >
-      <router-link to="/">Back To Home</router-link>
+      <router-link
+        to="/"
+        class="tw-flex tw-items-center tw-text-base before-font-material before:tw-content-['\e5c4'] before:tw-text-base before:tw-mr-1"
+      >
+        Back To Home
+      </router-link>
     </div>
     <h1 class="tw-my-4 tw-text-center tw-text-4xl tw-font-semibold">
       {{ titleRef }}

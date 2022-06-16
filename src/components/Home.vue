@@ -16,9 +16,7 @@
   export default defineComponent({
     name: 'Home',
     setup() {
-      return {
-        // 返回的資料
-      };
+      return {};
     },
   });
 </script>
