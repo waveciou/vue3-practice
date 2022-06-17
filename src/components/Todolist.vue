@@ -26,25 +26,25 @@
           class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
           :class="{
             'tw-text-yellow':
-              todoType !== 'UNCHECKED' && todoType !== 'CHECKED',
+              selectType !== 'UNCHECKED' && selectType !== 'CHECKED',
           }"
-          @click.stop="todoType = 'ALL'"
+          @click.stop="selectType = 'ALL'"
         >
           ALL
         </button>
         <button
           type="button"
           class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
-          :class="{ 'tw-text-yellow': todoType === 'CHECKED' }"
-          @click.stop="todoType = 'CHECKED'"
+          :class="{ 'tw-text-yellow': selectType === 'CHECKED' }"
+          @click.stop="selectType = 'CHECKED'"
         >
           CHECKED
         </button>
         <button
           type="button"
           class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
-          :class="{ 'tw-text-yellow': todoType === 'UNCHECKED' }"
-          @click.stop="todoType = 'UNCHECKED'"
+          :class="{ 'tw-text-yellow': selectType === 'UNCHECKED' }"
+          @click.stop="selectType = 'UNCHECKED'"
         >
           UNCHECKED
         </button>
@@ -96,22 +96,20 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, reactive, computed } from 'vue';
+  import { defineComponent, ref, computed } from 'vue';
+  import { storeToRefs } from 'pinia';
+  import { useTodoStore } from '../stores/todoStore';
 
-  interface ITodoItem {
-    id: string;
-    value: string;
-    checked: boolean;
-  }
-
-  type ITodoType = 'ALL' | 'CHECKED' | 'UNCHECKED';
+  type ISelectType = 'ALL' | 'CHECKED' | 'UNCHECKED';
 
   export default defineComponent({
-    name: 'Todolist',
+    name: 'TodoList',
     setup() {
+      const todoStore = useTodoStore();
+      const { todolist } = storeToRefs(todoStore);
+
       const inputValue = ref<string>('');
-      const todolist = reactive<ITodoItem[]>([]);
-      const todoType = ref<ITodoType>('ALL');
+      const selectType = ref<ISelectType>('ALL');
 
       const addTodoHandler = () => {
         if (inputValue.value === '') {
@@ -121,30 +119,25 @@
 
         const date: Date = new Date();
 
-        todolist.push({
+        todoStore.ADD_TODO_ACTION({
           id: `${date.getTime()}`,
           value: inputValue.value,
           checked: false,
         });
 
         inputValue.value = '';
-        todoType.value = 'ALL';
+        selectType.value = 'ALL';
       };
 
       const deleteTodoHandler = (id: string) => {
-        const index: number = todolist.findIndex(
-          (element) => element.id === id
-        );
-        if (index >= 0) {
-          todolist.splice(index, 1);
-        }
+        todoStore.DELETE_TODO_ACTION(id);
         return false;
       };
 
       const todolistByTypes = computed(() => {
-        const type: ITodoType = todoType.value;
+        const type: ISelectType = selectType.value;
 
-        return todolist.filter((todoItem) => {
+        return todolist.value.filter((todoItem) => {
           if (type === 'UNCHECKED') {
             return todoItem.checked === false;
           } else if (type === 'CHECKED') {
@@ -156,9 +149,9 @@
       });
 
       return {
-        inputValue,
         todolist,
-        todoType,
+        inputValue,
+        selectType,
         addTodoHandler,
         deleteTodoHandler,
         todolistByTypes,
