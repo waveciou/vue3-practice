@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export interface ITodoItem {
+interface ITodoItem {
   id: string;
   value: string;
   checked: boolean;
@@ -11,7 +11,7 @@ interface ITodoStore {
 }
 
 export const useTodoStore = defineStore({
-  id: 'todo',
+  id: 'TodoStore',
   state: (): ITodoStore => {
     return {
       todolist: [],

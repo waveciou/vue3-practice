@@ -6,12 +6,12 @@
         class="tw-w-full tw-h-10 tw-py-1 tw-px-3 tw-m-0 tw-inline-block tw-relative tw-text-md tw-leading-8 tw-text-blue-green tw-bg-white tw-border tw-border-white tw-border-solid tw-rounded tw-tracking-wide tw-grow tw-basis-0 tw-appearance-none"
         type="text"
         placeholder="Please Input Your Todo"
-        @keyup.enter="addTodoHandler"
+        @keyup.enter="handleAddTodo"
       />
       <button
         type="button"
         class="tw-h-10 tw-p-3 tw-leading-4 tw-text-white tw-bg-blue-green tw-rounded tw-ml-3"
-        @click.stop="addTodoHandler"
+        @click.stop="handleAddTodo"
       >
         Add Todo
       </button>
@@ -51,7 +51,7 @@
       </div>
       <ul>
         <li
-          v-for="todoItem of todolistByTypes"
+          v-for="todoItem of contextTodolist"
           :key="todoItem.id"
           class="tw-mb-4"
         >
@@ -86,7 +86,7 @@
             <button
               type="button"
               class="before-font-material tw-absolute tw-top-3 tw-right-3 before:tw-content-['\e872'] before:tw-block before:tw-w-5 before:tw-h-6 before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
-              @click.stop="deleteTodoHandler(todoItem.id)"
+              @click.stop="handleDeleteTodo(todoItem.id)"
             />
           </div>
         </li>
@@ -111,7 +111,7 @@
       const inputValue = ref<string>('');
       const selectType = ref<ISelectType>('ALL');
 
-      const addTodoHandler = () => {
+      const handleAddTodo = () => {
         if (inputValue.value === '') {
           alert('Please Input Something.');
           return false;
@@ -129,12 +129,11 @@
         selectType.value = 'ALL';
       };
 
-      const deleteTodoHandler = (id: string) => {
+      const handleDeleteTodo = (id: string) => {
         todoStore.DELETE_TODO_ACTION(id);
-        return false;
       };
 
-      const todolistByTypes = computed(() => {
+      const contextTodolist = computed(() => {
         const type: ISelectType = selectType.value;
 
         return todolist.value.filter((todoItem) => {
@@ -152,9 +151,9 @@
         todolist,
         inputValue,
         selectType,
-        addTodoHandler,
-        deleteTodoHandler,
-        todolistByTypes,
+        handleAddTodo,
+        handleDeleteTodo,
+        contextTodolist,
       };
     },
   });
