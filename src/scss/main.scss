@@ -34,6 +34,11 @@
   opacity: 0;
 }
 
+.before-font-material::before,
+.after-font-material::after {
+  @include font-material;
+}
+
 body {
   overflow-x: hidden;
   overflow-y: auto;
