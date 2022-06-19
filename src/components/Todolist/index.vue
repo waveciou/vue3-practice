@@ -17,38 +17,11 @@
       </button>
     </div>
     <div>
-      <div
+      <TodoNav
         v-if="todolist.length > 0"
-        class="tw-w-full tw-flex tw-items-center tw-overflow-x-auto tw-overflow-y-hidden tw-mb-4 desktop:tw-justify-center"
-      >
-        <button
-          type="button"
-          class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
-          :class="{
-            'tw-text-yellow':
-              selectType !== 'UNCHECKED' && selectType !== 'CHECKED',
-          }"
-          @click.stop="selectType = 'ALL'"
-        >
-          ALL
-        </button>
-        <button
-          type="button"
-          class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
-          :class="{ 'tw-text-yellow': selectType === 'CHECKED' }"
-          @click.stop="selectType = 'CHECKED'"
-        >
-          CHECKED
-        </button>
-        <button
-          type="button"
-          class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
-          :class="{ 'tw-text-yellow': selectType === 'UNCHECKED' }"
-          @click.stop="selectType = 'UNCHECKED'"
-        >
-          UNCHECKED
-        </button>
-      </div>
+        :selected="selected"
+        @select="handleChangeSelected"
+      />
       <ul>
         <li
           v-for="todoItem of contextTodolist"
@@ -67,13 +40,15 @@
   import { storeToRefs } from 'pinia';
   import { v4 as uuidv4 } from 'uuid';
   import { ITodoItem, useTodoStore } from '../../store/todoStore';
+  import TodoNav from './todoNav.vue';
   import TodoItem from './todoItem.vue';
 
-  type ISelectType = 'ALL' | 'CHECKED' | 'UNCHECKED';
+  type TSelected = 'ALL' | 'CHECKED' | 'UNCHECKED';
 
   export default defineComponent({
     name: 'Todolist',
     components: {
+      'TodoNav': TodoNav,
       'TodoItem': TodoItem,
     },
     setup() {
@@ -81,7 +56,7 @@
       const { todolist } = storeToRefs(todoStore);
 
       const inputValue = ref<string>('');
-      const selectType = ref<ISelectType>('ALL');
+      const selected = ref<TSelected>('ALL');
 
       onMounted(() => {
         const localData: string = localStorage.getItem('vue3-todolist') || '';
@@ -108,6 +83,10 @@
         }
       });
 
+      const handleChangeSelected = (payload: TSelected) => {
+        selected.value = payload;
+      };
+
       const handleAddTodo = () => {
         if (inputValue.value === '') {
           alert('Please Input Something.');
@@ -130,7 +109,7 @@
         });
 
         inputValue.value = '';
-        selectType.value = 'ALL';
+        selected.value = 'ALL';
       };
 
       const handleDeleteTodo = (id: string) => {
@@ -148,7 +127,7 @@
       };
 
       const contextTodolist = computed(() => {
-        const type: ISelectType = selectType.value;
+        const type: TSelected = selected.value;
 
         return todolist.value.filter((todoItem) => {
           if (type === 'UNCHECKED') {
@@ -172,7 +151,8 @@
       return {
         todolist,
         inputValue,
-        selectType,
+        selected,
+        handleChangeSelected,
         handleAddTodo,
         handleDeleteTodo,
         contextTodolist,

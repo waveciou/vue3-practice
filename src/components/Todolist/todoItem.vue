@@ -52,9 +52,11 @@
       const isChecked = ref<boolean>(props.todoData.checked);
 
       watch(isChecked, (current) => {
+        const { todoData } = props;
+
         todoStore.$patch((state) => {
           const index: number = state.todolist.findIndex(
-            (item) => item.id === props.todoData.id
+            (item) => item.id === todoData.id
           );
 
           if (index >= 0) {
