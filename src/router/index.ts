@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import Home from '../components/Home.vue';
-import Todolist from '../components/Todolist.vue';
+import Todolist from '../components/Todolist/index.vue';
 
 const routes = [
   {
