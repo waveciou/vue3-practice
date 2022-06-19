@@ -55,40 +55,7 @@
           :key="todoItem.id"
           class="tw-mb-4"
         >
-          <div
-            class="tw-py-3 tw-pl-3 tw-pr-8 tw-relative tw-bg-white tw-border tw-border-white tw-border-solid tw-rounded tw-overflow-hidden"
-          >
-            <input
-              :id="todoItem.id"
-              v-model="todoItem.checked"
-              type="checkbox"
-              :checked="todoItem.checked === true"
-              class="tw-w-0 tw-h-0 tw-absolute tw-opacity-0 tw-invisible tw-z-hidden"
-            />
-            <label
-              :for="todoItem.id"
-              class="tw-flex tw-items-center tw-cursor-pointer tw-overflow-hidden"
-            >
-              <div>
-                <span
-                  v-if="todoItem.checked === false"
-                  class="tw-block tw-w-6 tw-h-6 tw-mr-2 before-font-material before:tw-content-['\e835'] before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
-                />
-                <span
-                  v-else
-                  class="tw-block tw-w-6 tw-h-6 tw-mr-2 before-font-material before:tw-content-['\e834'] before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
-                />
-              </div>
-              <span class="tw-block tw-leading-6 tw-break-all">
-                {{ todoItem.value }}
-              </span>
-            </label>
-            <button
-              type="button"
-              class="before-font-material tw-absolute tw-top-3 tw-right-3 before:tw-content-['\e872'] before:tw-block before:tw-w-5 before:tw-h-6 before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
-              @click.stop="handleDeleteTodo(todoItem.id)"
-            />
-          </div>
+          <TodoItem :todo-data="todoItem" @delete="handleDeleteTodo" />
         </li>
       </ul>
     </div>
@@ -100,11 +67,15 @@
   import { storeToRefs } from 'pinia';
   import { v4 as uuidv4 } from 'uuid';
   import { ITodoItem, useTodoStore } from '../../store/todoStore';
+  import TodoItem from './todoItem.vue';
 
   type ISelectType = 'ALL' | 'CHECKED' | 'UNCHECKED';
 
   export default defineComponent({
     name: 'Todolist',
+    components: {
+      'TodoItem': TodoItem,
+    },
     setup() {
       const todoStore = useTodoStore();
       const { todolist } = storeToRefs(todoStore);
@@ -164,9 +135,6 @@
 
       const handleDeleteTodo = (id: string) => {
         if (window.confirm('Are you sure to delete todo?')) {
-          // * Use Actions to edit the store data.
-          // todoStore.DELETE_TODO_ACTION(id);
-
           todoStore.$patch((state) => {
             const index: number = state.todolist.findIndex(
               (item) => item.id === id
