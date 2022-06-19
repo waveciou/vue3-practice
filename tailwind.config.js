@@ -5,7 +5,6 @@ module.exports = {
     './src/*.{vue,js,ts,jsx,tsx}',
     './src/**/*.{vue,js,ts,jsx,tsx}',
   ],
-  darkMode: false,
   theme: {
     minWidth: {
       '120': '120px',

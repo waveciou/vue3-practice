@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-interface ITodoItem {
+export interface ITodoItem {
   id: string;
   value: string;
   checked: boolean;

@@ -96,14 +96,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, computed } from 'vue';
+  import { defineComponent, ref, computed, watch, onMounted } from 'vue';
   import { storeToRefs } from 'pinia';
-  import { useTodoStore } from '../stores/todoStore';
+  import { v4 as uuidv4 } from 'uuid';
+  import { ITodoItem, useTodoStore } from '../stores/todoStore';
 
   type ISelectType = 'ALL' | 'CHECKED' | 'UNCHECKED';
 
   export default defineComponent({
-    name: 'TodoList',
+    name: 'Todolist',
     setup() {
       const todoStore = useTodoStore();
       const { todolist } = storeToRefs(todoStore);
@@ -111,18 +112,50 @@
       const inputValue = ref<string>('');
       const selectType = ref<ISelectType>('ALL');
 
+      onMounted(() => {
+        const localData: string = localStorage.getItem('vue3-todolist') || '';
+        let isConfirm = false;
+
+        if (localData !== '') {
+          try {
+            const localValue: ITodoItem[] = JSON.parse(localData);
+
+            if (Array.isArray(localValue)) {
+              isConfirm = true;
+
+              todoStore.$patch((state) => {
+                state.todolist = [...localValue];
+              });
+            }
+          } catch (error) {
+            console.log(error);
+          }
+
+          if (!isConfirm) {
+            localStorage.removeItem('vue3-todolist');
+          }
+        }
+      });
+
       const handleAddTodo = () => {
         if (inputValue.value === '') {
           alert('Please Input Something.');
           return false;
         }
 
-        const date: Date = new Date();
+        // * Use Actions to edit the store data.
+        // todoStore.ADD_TODO_ACTION({
+        //   id: `${uuidv4()}`,
+        //   value: inputValue.value,
+        //   checked: false,
+        // });
 
-        todoStore.ADD_TODO_ACTION({
-          id: `${date.getTime()}`,
-          value: inputValue.value,
-          checked: false,
+        todoStore.$patch((state) => {
+          state.todolist.push({
+            id: `${uuidv4()}`,
+            value: inputValue.value,
+            checked: false,
+          });
         });
 
         inputValue.value = '';
@@ -130,7 +163,20 @@
       };
 
       const handleDeleteTodo = (id: string) => {
-        todoStore.DELETE_TODO_ACTION(id);
+        if (window.confirm('Are you sure to delete todo?')) {
+          // * Use Actions to edit the store data.
+          // todoStore.DELETE_TODO_ACTION(id);
+
+          todoStore.$patch((state) => {
+            const index: number = state.todolist.findIndex(
+              (item) => item.id === id
+            );
+
+            if (index >= 0) {
+              state.todolist.splice(index, 1);
+            }
+          });
+        }
       };
 
       const contextTodolist = computed(() => {
@@ -146,6 +192,14 @@
           }
         });
       });
+
+      watch(
+        () => todolist.value,
+        (current) => {
+          localStorage.setItem('vue3-todolist', JSON.stringify(current));
+        },
+        { deep: true }
+      );
 
       return {
         todolist,
