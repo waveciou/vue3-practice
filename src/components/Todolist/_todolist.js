@@ -1,7 +1,7 @@
-import '../scss/main.scss';
-import '../scss/todolist.scss';
+// import '../scss/main.scss';
+// import '../scss/todolist.scss';
 
-(function(Vue) {
+(function (Vue) {
   const { ref, reactive, computed } = Vue;
 
   const app = {
@@ -79,7 +79,7 @@ import '../scss/todolist.scss';
         todolist.push({
           id: `todoitem_${date.getTime()}`,
           value: inputValue.value,
-          checked: false
+          checked: false,
         });
 
         inputValue.value = '';
@@ -87,14 +87,14 @@ import '../scss/todolist.scss';
       };
 
       const deleteTodoHandler = (id) => {
-        const index = todolist.findIndex(element => element.id === id);
+        const index = todolist.findIndex((element) => element.id === id);
         if (index < 0) return false;
         todolist.splice(index, 1);
       };
 
       const todolistByTypes = computed(() => {
         const type = todoType.value;
-        return todolist.filter(todoItem => {
+        return todolist.filter((todoItem) => {
           if (type === 0) {
             return todoItem.checked === false;
           } else if (type === 1) {
@@ -111,10 +111,11 @@ import '../scss/todolist.scss';
         todoType,
         addTodoHandler,
         deleteTodoHandler,
-        todolistByTypes
+        todolistByTypes,
       };
-    }
+    },
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const vm = Vue.createApp(app).mount('#app');
 })(Vue);
