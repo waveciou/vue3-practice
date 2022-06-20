@@ -8,6 +8,7 @@
       :class="{
         'tw-text-yellow': selected !== 'UNCHECKED' && selected !== 'CHECKED',
       }"
+      title="ALL"
       @click.stop="context.emit('select', 'ALL')"
     >
       ALL
@@ -16,6 +17,7 @@
       type="button"
       class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
       :class="{ 'tw-text-yellow': selected === 'CHECKED' }"
+      title="CHECKED"
       @click.stop="context.emit('select', 'CHECKED')"
     >
       CHECKED
@@ -24,6 +26,7 @@
       type="button"
       class="tw-min-w-120 tw-h-10 tw-p-3 tw-mx-2 tw-leading-4 tw-text-center tw-text-white tw-bg-blue-green tw-rounded desktop:tw-mx-3"
       :class="{ 'tw-text-yellow': selected === 'UNCHECKED' }"
+      title="UNCHECKED"
       @click.stop="context.emit('select', 'UNCHECKED')"
     >
       UNCHECKED

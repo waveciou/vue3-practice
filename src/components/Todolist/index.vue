@@ -11,6 +11,7 @@
       <button
         type="button"
         class="tw-h-10 tw-p-3 tw-leading-4 tw-text-white tw-bg-blue-green tw-rounded tw-ml-3"
+        title="Add Todo"
         @click.stop="handleAddTodo"
       >
         Add Todo
@@ -20,7 +21,7 @@
       <TodoNav
         v-if="todolist.length > 0"
         :selected="selected"
-        @select="handleChangeSelected"
+        @select="handleSetSelected"
       />
       <ul>
         <li
@@ -83,7 +84,7 @@
         }
       });
 
-      const handleChangeSelected = (payload: TSelected) => {
+      const handleSetSelected = (payload: TSelected) => {
         selected.value = payload;
       };
 
@@ -152,7 +153,7 @@
         todolist,
         inputValue,
         selected,
-        handleChangeSelected,
+        handleSetSelected,
         handleAddTodo,
         handleDeleteTodo,
         contextTodolist,

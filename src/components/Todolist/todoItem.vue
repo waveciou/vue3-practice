@@ -30,6 +30,7 @@
     <button
       type="button"
       class="before-font-material tw-absolute tw-top-3 tw-right-3 before:tw-content-['\e872'] before:tw-block before:tw-w-5 before:tw-h-6 before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
+      title="Delete"
       @click.stop="context.emit('delete', todoData.id)"
     />
   </div>
