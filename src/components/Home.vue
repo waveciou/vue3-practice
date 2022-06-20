@@ -6,6 +6,11 @@
           Todolist
         </router-link>
       </li>
+      <li>
+        <router-link class="tw-inline-block tw-text-lg" to="/weather-app">
+          Weather App
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>

@@ -14,7 +14,7 @@
       </router-link>
     </div>
     <h1 class="tw-my-4 tw-text-center tw-text-4xl tw-font-semibold">
-      {{ titleRef }}
+      {{ title }}
     </h1>
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
@@ -32,20 +32,24 @@
     name: 'App',
     setup() {
       const route = useRoute();
-      const titleRef = ref<string>('Vue 3.0 Practice');
+      const title = ref<string>('Vue 3.0 Practice');
       const isHiddenNav = ref<boolean>(true);
 
       watch(
-        () => route.path,
+        () => route,
         () => {
-          const result = route.path === '/' ? true : false;
+          const result: boolean = route.path === '/' ? true : false;
           isHiddenNav.value = result;
+          title.value = (route.meta.title as string) || 'Vue 3.0 Practice';
         },
-        { immediate: true }
+        {
+          immediate: true,
+          deep: true,
+        }
       );
 
       return {
-        titleRef,
+        title,
         isHiddenNav,
       };
     },
