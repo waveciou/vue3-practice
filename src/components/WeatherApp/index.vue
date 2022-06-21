@@ -17,16 +17,21 @@
         Submit
       </button>
     </div>
+
+    <transition name="fade" mode="out-in">
+      <Detail v-if="isShowResult" />
+    </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
+  import { ref, computed, onMounted } from 'vue';
   import { storeToRefs } from 'pinia';
   import axios from 'axios';
   import { v4 as uuidv4 } from 'uuid';
   import { useCommonStore } from '../../store/commonStore';
   import { useWeatherStore } from '../../store/weatherStore';
+  import Detail from './detail.vue';
 
   interface IDataListItem {
     dt: number;
@@ -43,10 +48,11 @@
 
   const inputValue = ref<string>('');
   const isError = ref<boolean>(false);
-  const currentMaxTemp = ref<string>('');
-  const currentMinTemp = ref<string>('');
+  // const currentMaxTemp = ref<string>('');
+  // const currentMinTemp = ref<string>('');
 
   const { isLoading } = storeToRefs(commonStore);
+  const { detail } = storeToRefs(weatherStore);
 
   onMounted(() => {
     isError.value = false;
@@ -126,6 +132,12 @@
       isLoading.value = false;
     }
   };
+
+  const isShowResult = computed(() => {
+    const result: boolean =
+      !isLoading.value && !isError.value && detail.value !== null;
+    return result;
+  });
 </script>
 
 <style lang="scss" scoped>

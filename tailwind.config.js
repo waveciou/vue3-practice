@@ -10,6 +10,7 @@ module.exports = {
       '120': '120px',
     },
     screens: {
+      mobile: '370px',
       desktop: '660px',
       'real-desktop': '1025px',
     },
