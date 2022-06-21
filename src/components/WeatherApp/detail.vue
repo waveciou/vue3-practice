@@ -42,37 +42,25 @@
           </ul>
         </div>
       </div>
+      <div
+        v-if="humidity !== null"
+        className="tw-w-52 tw-mx-auto tw-my-5 desktop:tw-mx-0 desktop:tw-my-0"
+      >
+        <!-- <PieChart amount={humidity} /> -->
+        <div className="tw-text-center tw-text-xl tw-font-bold tw-mt-3 tw-mb-1">
+          Humidity
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-  import dayjs from 'dayjs';
-  import utc from 'dayjs/plugin/utc';
-
   import { storeToRefs } from 'pinia';
   import { useWeatherStore } from '../../store/weatherStore';
-
-  dayjs.extend(utc);
+  import formatTime from '../../utils/formatTime';
+  import formatCurrency from '../../utils/formatCurrency';
 
   const weatherStore = useWeatherStore();
-  const { detail, utcTime } = storeToRefs(weatherStore);
-
-  const formatTime = (
-    time: number,
-    utcTime: number,
-    format?: string
-  ): string => {
-    const _format = format ? format : 'YYYY/MM/DD HH:mm';
-    return dayjs.unix(time).utcOffset(utcTime).format(_format);
-  };
-
-  const formatCurrency = (value: number): string => {
-    let result = `${value}`;
-    const reg = /(-?\d+)(\d{3})/;
-    while (reg.test(result)) {
-      result = result.replace(reg, '$1,$2');
-    }
-    return result;
-  };
+  const { detail, humidity, utcTime } = storeToRefs(weatherStore);
 </script>
