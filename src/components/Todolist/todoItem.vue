@@ -16,11 +16,11 @@
       <div>
         <span
           v-if="todoData.checked === false"
-          class="tw-block tw-w-6 tw-h-6 tw-mr-2 before-font-material before:tw-content-['\e835'] before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
+          class="tw-block tw-w-6 tw-h-6 tw-mr-2 before-font-material before:tw-content-['\e835'] before:tw-leading-6 before:tw-text-black before:tw-text-center"
         />
         <span
           v-else
-          class="tw-block tw-w-6 tw-h-6 tw-mr-2 before-font-material before:tw-content-['\e834'] before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
+          class="tw-block tw-w-6 tw-h-6 tw-mr-2 before-font-material before:tw-content-['\e834'] before:tw-leading-6 before:tw-text-black before:tw-text-center"
         />
       </div>
       <span class="tw-block tw-leading-6 tw-break-all">
@@ -29,7 +29,7 @@
     </label>
     <button
       type="button"
-      class="before-font-material tw-absolute tw-top-3 tw-right-3 before:tw-content-['\e872'] before:tw-block before:tw-w-5 before:tw-h-6 before:tw-leading-6 before:tw-text-blue-green before:tw-text-center"
+      class="before-font-material tw-absolute tw-top-3 tw-right-3 before:tw-content-['\e872'] before:tw-block before:tw-w-5 before:tw-h-6 before:tw-leading-6 before:tw-text-black before:tw-text-center"
       title="Delete"
       @click.stop="context.emit('delete', todoData.id)"
     />
