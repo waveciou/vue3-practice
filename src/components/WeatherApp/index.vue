@@ -21,12 +21,52 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
+  import axios from 'axios';
+  import { v4 as uuidv4 } from 'uuid';
+  import { useCommonStore } from '../../store/commonStore';
 
+  const commonStore = useCommonStore();
   const inputValue = ref<string>('');
+  const isError = ref<boolean>(false);
 
-  const handleSubmit = () => {
-    return false;
+  onMounted(() => {
+    isError.value = false;
+    commonStore.isLoading = false;
+  });
+
+  const handleSubmit = async () => {
+    if (inputValue.value === '') {
+      return false;
+    }
+
+    isError.value = false;
+    commonStore.isLoading = true;
+
+    try {
+      const { data } = await axios({
+        method: 'get',
+        url: 'https://api.openweathermap.org/data/2.5/forecast',
+        params: {
+          q: inputValue.value,
+          units: 'metric',
+          lang: 'zh_tw',
+          cnt: '5',
+          mode: 'json',
+          appid: '48f427056d4654fc05c05c1e61a36c47',
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log(data);
+      commonStore.isLoading = false;
+    } catch (error) {
+      console.log(error);
+      isError.value = true;
+      commonStore.isLoading = false;
+    }
   };
 </script>
 
