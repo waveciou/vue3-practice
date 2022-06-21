@@ -28,7 +28,7 @@
   import { ref, computed, onMounted } from 'vue';
   import { storeToRefs } from 'pinia';
   import axios from 'axios';
-  import { v4 as uuidv4 } from 'uuid';
+  // import { v4 as uuidv4 } from 'uuid';
   import { useCommonStore } from '../../store/commonStore';
   import { useWeatherStore } from '../../store/weatherStore';
   import Detail from './detail.vue';

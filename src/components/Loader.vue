@@ -18,3 +18,26 @@
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  @import '../src/scss/utils/_utils.scss';
+
+  @keyframes bouncing-loader {
+    to {
+      opacity: 0.1;
+      transform: translate3d(0, -1rem, 0);
+    }
+  }
+
+  .bouncing-animation {
+    animation: bouncing-loader 0.6s infinite alternate;
+  }
+
+  .bouncing-animation_delay-2 {
+    animation-delay: 0.2s;
+  }
+
+  .bouncing-animation_delay-4 {
+    animation-delay: 0.4s;
+  }
+</style>
