@@ -22,18 +22,31 @@
       </transition>
     </router-view>
   </div>
+  <transition name="fade" mode="out-in">
+    <Loader v-if="isLoading" />
+  </transition>
 </template>
 
 <script lang="ts">
   import { ref, defineComponent, watch } from 'vue';
   import { useRoute } from 'vue-router';
+  import { storeToRefs } from 'pinia';
+  import { useCommonStore } from './store/commonStore';
+  import Loader from './components/Loader.vue';
 
   export default defineComponent({
     name: 'App',
+    components: {
+      'Loader': Loader,
+    },
     setup() {
       const route = useRoute();
+      const commonStore = useCommonStore();
+
       const title = ref<string>('Vue 3.0 Practice');
       const isHiddenNav = ref<boolean>(true);
+
+      const { isLoading } = storeToRefs(commonStore);
 
       watch(
         () => route,
@@ -51,6 +64,7 @@
       return {
         title,
         isHiddenNav,
+        isLoading,
       };
     },
   });

@@ -13,16 +13,6 @@ interface IDetail {
   time: number;
 }
 
-interface IDataListItem {
-  dt: number;
-  main: {
-    temp_max: number;
-    temp_min: number;
-    humidity: number;
-  };
-  weather: { description: string }[];
-}
-
 interface ITempData {
   value: number;
   time: number;
@@ -39,7 +29,7 @@ interface IWeatherStore {
   tempMaxList: ITempData[];
   tempMinList: ITempData[];
   humidity: number | null;
-  utcTime: 8;
+  utcTime: number;
 }
 
 export const useWeatherStore = defineStore({

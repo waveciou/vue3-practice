@@ -3,14 +3,14 @@
     <div class="tw-my-6 tw-flex tw-items-center desktop:tw-my-8">
       <input
         v-model.trim="inputValue"
-        class="tw-w-full tw-h-10 tw-py-1 tw-px-3 tw-m-0 tw-inline-block tw-relative tw-text-md tw-leading-8 tw-text-blue-green tw-bg-white tw-border tw-border-white tw-border-solid tw-rounded tw-tracking-wide tw-grow tw-basis-0 tw-appearance-none"
+        class="tw-w-full tw-h-10 tw-py-1 tw-px-3 tw-m-0 tw-inline-block tw-relative tw-text-md tw-leading-8 tw-text-black tw-bg-white tw-border tw-border-white tw-border-solid tw-rounded tw-tracking-wide tw-grow tw-basis-0 tw-appearance-none"
         type="text"
         placeholder="Search City"
         @keyup.enter="handleSubmit"
       />
       <button
         type="button"
-        class="tw-h-10 tw-p-3 tw-leading-4 tw-text-white tw-bg-blue-green tw-rounded tw-ml-3"
+        class="tw-h-10 tw-p-3 tw-leading-4 tw-text-white tw-bg-black tw-rounded tw-ml-3"
         title="Submit"
         @click.stop="handleSubmit"
       >
@@ -22,26 +22,46 @@
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue';
+  import { storeToRefs } from 'pinia';
   import axios from 'axios';
   import { v4 as uuidv4 } from 'uuid';
   import { useCommonStore } from '../../store/commonStore';
+  import { useWeatherStore } from '../../store/weatherStore';
+
+  interface IDataListItem {
+    dt: number;
+    main: {
+      temp_max: number;
+      temp_min: number;
+      humidity: number;
+    };
+    weather: { description: string }[];
+  }
 
   const commonStore = useCommonStore();
+  const weatherStore = useWeatherStore();
+
   const inputValue = ref<string>('');
   const isError = ref<boolean>(false);
+  const currentMaxTemp = ref<string>('');
+  const currentMinTemp = ref<string>('');
+
+  const { isLoading } = storeToRefs(commonStore);
 
   onMounted(() => {
     isError.value = false;
-    commonStore.isLoading = false;
+    isLoading.value = false;
   });
 
   const handleSubmit = async () => {
-    if (inputValue.value === '') {
+    if (inputValue.value === '' && !isLoading.value) {
       return false;
     }
 
     isError.value = false;
-    commonStore.isLoading = true;
+    isLoading.value = true;
+
+    weatherStore.$reset();
 
     try {
       const { data } = await axios({
@@ -60,12 +80,50 @@
         },
       });
 
-      console.log(data);
-      commonStore.isLoading = false;
+      weatherStore.$patch((state) => {
+        const { coord, population, sunrise, sunset, timezone } = data.city;
+
+        state.weatherList = data.list.map(({ dt, weather }: IDataListItem) => {
+          return {
+            description: weather[0].description,
+            time: dt,
+          };
+        });
+
+        state.tempMaxList = data.list.map(({ dt, main }: IDataListItem) => {
+          return {
+            value: main.temp_max,
+            time: dt,
+          };
+        });
+
+        state.tempMinList = data.list.map(({ dt, main }: IDataListItem) => {
+          return {
+            value: main.temp_min,
+            time: dt,
+          };
+        });
+
+        state.humidity = data.list[0].main.humidity;
+        state.utcTime = timezone / 3600;
+
+        state.detail = {
+          name: `${data.city.name}, ${data.city.country}`,
+          weather: data.list[0].weather[0].description,
+          coord,
+          population,
+          sunrise,
+          sunset,
+          time: data.list[0].dt,
+        };
+      });
+
+      inputValue.value = '';
+      isLoading.value = false;
     } catch (error) {
       console.log(error);
       isError.value = true;
-      commonStore.isLoading = false;
+      isLoading.value = false;
     }
   };
 </script>

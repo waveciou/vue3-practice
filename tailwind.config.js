@@ -17,13 +17,13 @@ module.exports = {
       white: '#FFFFFF',
       black: '#35495E',
       green: '#42B983',
-      'blue-green': '#35495E',
       gray: '#CCD1D9',
       yellow: '#FFEB3B',
     },
     extend: {
       zIndex: {
         'hidden': '-9999',
+        '6000': '6000',
       },
     },
   },
