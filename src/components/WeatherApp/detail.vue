@@ -52,6 +52,7 @@
         </div>
       </div>
     </div>
+    <Forecast :list="weatherList" />
   </section>
 </template>
 
@@ -61,7 +62,8 @@
   import formatTime from '../../utils/formatTime';
   import formatCurrency from '../../utils/formatCurrency';
   import PieChart from './pieChart.vue';
+  import Forecast from './forecast.vue';
 
   const weatherStore = useWeatherStore();
-  const { detail, humidity, utcTime } = storeToRefs(weatherStore);
+  const { detail, humidity, utcTime, weatherList } = storeToRefs(weatherStore);
 </script>

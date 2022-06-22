@@ -18,7 +18,7 @@ interface ITempData {
   time: number;
 }
 
-interface IWeatherData {
+export interface IWeatherData {
   description: string;
   time: number;
 }
