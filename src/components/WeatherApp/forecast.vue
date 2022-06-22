@@ -36,8 +36,8 @@
   import { computed } from 'vue';
   import { storeToRefs } from 'pinia';
   import { v4 as uuidv4 } from 'uuid';
-  import { useWeatherStore, IWeatherData } from '../../store/weatherStore';
-  import formatTime from '../../utils/formatTime';
+  import { useWeatherStore, IWeatherData } from '@/Store/weatherStore';
+  import formatTime from '@/Utils/formatTime';
 
   const weatherStore = useWeatherStore();
   const { utcTime } = storeToRefs(weatherStore);

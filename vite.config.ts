@@ -11,6 +11,17 @@ const outDir: string = resolve(__dirname, 'dist');
 export default defineConfig({
   root,
   base: '/vue3-practice/',
+  resolve: {
+    alias: [
+      { find: '@/Store', replacement: resolve(__dirname, 'src/store') },
+      { find: '@/Utils', replacement: resolve(__dirname, 'src/utils') },
+      {
+        find: '@/Components',
+        replacement: resolve(__dirname, 'src/components'),
+      },
+      { find: '@/Scss', replacement: resolve(__dirname, 'src/scss') },
+    ],
+  },
   plugins: [
     vue(),
     eslintPlugin(),

@@ -58,11 +58,11 @@
 
 <script setup lang="ts">
   import { storeToRefs } from 'pinia';
-  import { useWeatherStore } from '../../store/weatherStore';
-  import formatTime from '../../utils/formatTime';
-  import formatCurrency from '../../utils/formatCurrency';
-  import PieChart from './pieChart.vue';
-  import Forecast from './forecast.vue';
+  import { useWeatherStore } from '@/Store/weatherStore';
+  import formatTime from '@/Utils/formatTime';
+  import formatCurrency from '@/Utils/formatCurrency';
+  import PieChart from '@/Components/WeatherApp/pieChart.vue';
+  import Forecast from '@/Components/WeatherApp/forecast.vue';
 
   const weatherStore = useWeatherStore();
   const { detail, humidity, utcTime, weatherList } = storeToRefs(weatherStore);

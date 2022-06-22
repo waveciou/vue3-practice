@@ -29,9 +29,9 @@
   import { storeToRefs } from 'pinia';
   import axios from 'axios';
   // import { v4 as uuidv4 } from 'uuid';
-  import { useCommonStore } from '../../store/commonStore';
-  import { useWeatherStore } from '../../store/weatherStore';
-  import Detail from './detail.vue';
+  import { useCommonStore } from '@/Store/commonStore';
+  import { useWeatherStore } from '@/Store/weatherStore';
+  import Detail from '@/Components/WeatherApp/detail.vue';
 
   interface IDataListItem {
     dt: number;
@@ -141,5 +141,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../src/scss/utils/_utils.scss';
+  @import '@/Scss/utils/_utils.scss';
 </style>
