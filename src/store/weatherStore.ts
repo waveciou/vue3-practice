@@ -13,12 +13,12 @@ interface IDetail {
   time: number;
 }
 
-interface ITempData {
+export interface ITempData {
   value: number;
   time: number;
 }
 
-interface IWeatherData {
+export interface IWeatherData {
   description: string;
   time: number;
 }

@@ -31,8 +31,8 @@
   import { ref, defineComponent, watch } from 'vue';
   import { useRoute } from 'vue-router';
   import { storeToRefs } from 'pinia';
-  import { useCommonStore } from './store/commonStore';
-  import Loader from './components/Loader.vue';
+  import { useCommonStore } from '@/Store/commonStore';
+  import Loader from '@/Components/Loader.vue';
 
   export default defineComponent({
     name: 'App',
@@ -71,5 +71,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../src/scss/utils/_utils.scss';
+  @import '@/Scss/utils/_utils.scss';
 </style>

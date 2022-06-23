@@ -49,13 +49,13 @@
     amount: number;
   }>();
 
-  const amountValue = computed(() => {
+  const amountValue = computed((): number => {
     return Math.floor(prop.amount);
   });
 </script>
 
 <style lang="scss" scoped>
-  @import '../src/scss/utils/_utils.scss';
+  @import '@/Scss/utils/_utils.scss';
 
   @keyframes pie-chart-fill {
     to {

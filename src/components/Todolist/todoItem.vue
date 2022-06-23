@@ -38,7 +38,7 @@
 
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue';
-  import { useTodoStore } from '../../store/todoStore';
+  import { useTodoStore } from '@/Store/todoStore';
 
   export default defineComponent({
     name: 'TodoItem',

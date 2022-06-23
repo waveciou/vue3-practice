@@ -20,7 +20,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '../src/scss/utils/_utils.scss';
+  @import '@/Scss/utils/_utils.scss';
 
   @keyframes bouncing-loader {
     to {

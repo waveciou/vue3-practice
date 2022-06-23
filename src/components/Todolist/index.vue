@@ -40,9 +40,9 @@
   import { defineComponent, ref, computed, watch, onMounted } from 'vue';
   import { storeToRefs } from 'pinia';
   import { v4 as uuidv4 } from 'uuid';
-  import { ITodoItem, useTodoStore } from '../../store/todoStore';
-  import TodoNav from './todoNav.vue';
-  import TodoItem from './todoItem.vue';
+  import { ITodoItem, useTodoStore } from '@/Store/todoStore';
+  import TodoNav from '@/Components/Todolist/todoNav.vue';
+  import TodoItem from '@/Components/Todolist/todoItem.vue';
 
   type TSelected = 'ALL' | 'CHECKED' | 'UNCHECKED';
 
@@ -163,5 +163,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../src/scss/utils/_utils.scss';
+  @import '@/Scss/utils/_utils.scss';
 </style>
