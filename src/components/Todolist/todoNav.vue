@@ -45,6 +45,7 @@
         required: true,
       },
     },
+    emits: ['select'],
     setup(props, context) {
       return {
         context,
