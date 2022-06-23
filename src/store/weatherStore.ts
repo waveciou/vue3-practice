@@ -13,7 +13,7 @@ interface IDetail {
   time: number;
 }
 
-interface ITempData {
+export interface ITempData {
   value: number;
   time: number;
 }

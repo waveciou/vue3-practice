@@ -53,17 +53,94 @@
       </div>
     </div>
     <Forecast :list="weatherList" />
+    <div className="desktop:tw-flex desktop:tw-justify-between">
+      <div className="tw-mb-3 tw-pt-7 tw-relative desktop:tw-mb-0">
+        <div
+          className="tw-hidden tw-w-full tw-absolute tw-left-0 tw-top-0 real-desktop:tw-flex tw-justify-center tw-items-center"
+        >
+          <span
+            v-if="currentMaxTemp !== ''"
+            className="tw-inline-block tw-py-0.5 tw-px-2 tw-text-xs tw-bg-black tw-text-white tw-rounded-md"
+          >
+            {{ currentMaxTemp }}
+          </span>
+        </div>
+        <div @mouseleave="handleSetCurrentMaxTemp('')">
+          <BarChart
+            :amount="tempMaxList"
+            @set-current="handleSetCurrentMaxTemp"
+          />
+        </div>
+        <div className="tw-text-center tw-text-xl tw-font-bold tw-mt-4 tw-mb-1">
+          Max Temperature (°C)
+        </div>
+        <div
+          className="real-desktop:tw-hidden tw-text-center tw-text-sm tw-font-bold"
+        >
+          {{ formatTime(tempMaxList[0].time, utcTime) }} ~
+          {{ formatTime(tempMaxList[tempMaxList.length - 1].time, utcTime) }}
+        </div>
+      </div>
+
+      <div className="tw-mb-3 tw-pt-7 tw-relative desktop:tw-mb-0">
+        <div
+          className="tw-hidden tw-w-full tw-absolute tw-left-0 tw-top-0 real-desktop:tw-flex tw-justify-center tw-items-center"
+        >
+          <span
+            v-if="currentMinTemp !== ''"
+            className="tw-inline-block tw-py-0.5 tw-px-2 tw-text-xs tw-bg-black tw-text-white tw-rounded-md"
+          >
+            {{ currentMinTemp }}
+          </span>
+        </div>
+        <div @mouseleave="handleSetCurrentMaxTemp('')">
+          <BarChart
+            :amount="tempMinList"
+            @set-current="handleSetCurrentMinTemp"
+          />
+        </div>
+        <div className="tw-text-center tw-text-xl tw-font-bold tw-mt-4 tw-mb-1">
+          Min Temperature (°C)
+        </div>
+        <div
+          className="real-desktop:tw-hidden tw-text-center tw-text-sm tw-font-bold"
+        >
+          {{ formatTime(tempMinList[0].time, utcTime) }} ~
+          {{ formatTime(tempMinList[tempMinList.length - 1].time, utcTime) }}
+        </div>
+      </div>
+    </div>
+
+    <div
+      className="tw-mt-10 tw-text-sm tw-font-bold tw-text-gray-dark tw-text-center"
+    >
+      All of time use UTC {{ utcTime > 0 ? `+${utcTime}` : utcTime }} time zone.
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
+  import { ref } from 'vue';
   import { storeToRefs } from 'pinia';
   import { useWeatherStore } from '@/Store/weatherStore';
   import formatTime from '@/Utils/formatTime';
   import formatCurrency from '@/Utils/formatCurrency';
   import PieChart from '@/Components/WeatherApp/pieChart.vue';
+  import BarChart from '@/Components/WeatherApp/barChart.vue';
   import Forecast from '@/Components/WeatherApp/forecast.vue';
 
   const weatherStore = useWeatherStore();
-  const { detail, humidity, utcTime, weatherList } = storeToRefs(weatherStore);
+  const { detail, humidity, utcTime, weatherList, tempMaxList, tempMinList } =
+    storeToRefs(weatherStore);
+
+  const currentMaxTemp = ref<string>('');
+  const currentMinTemp = ref<string>('');
+
+  const handleSetCurrentMaxTemp = (payload: string) => {
+    currentMaxTemp.value = payload;
+  };
+
+  const handleSetCurrentMinTemp = (payload: string) => {
+    currentMinTemp.value = payload;
+  };
 </script>

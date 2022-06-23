@@ -49,7 +49,7 @@
     amount: number;
   }>();
 
-  const amountValue = computed(() => {
+  const amountValue = computed((): number => {
     return Math.floor(prop.amount);
   });
 </script>

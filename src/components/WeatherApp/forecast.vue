@@ -59,14 +59,14 @@
   const classDefines =
     'tw-w-1/5 tw-px-2.5 tw-leading-relaxed tw-align-middle tw-text-center tw-border tw-border-gray-light tw-border-solid tw-text-xs';
 
-  const captionList = computed(() => {
+  const captionList = computed((): ICaptionList[] => {
     const result: ICaptionList[] = prop.list.map(({ time }) => {
       return { id: uuidv4(), time };
     });
     return result;
   });
 
-  const contentList = computed(() => {
+  const contentList = computed((): IContentList[] => {
     const result: IContentList[] = prop.list.map(({ description }) => {
       return { id: uuidv4(), description };
     });

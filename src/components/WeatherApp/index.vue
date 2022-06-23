@@ -28,7 +28,6 @@
   import { ref, computed, onMounted } from 'vue';
   import { storeToRefs } from 'pinia';
   import axios from 'axios';
-  // import { v4 as uuidv4 } from 'uuid';
   import { useCommonStore } from '@/Store/commonStore';
   import { useWeatherStore } from '@/Store/weatherStore';
   import Detail from '@/Components/WeatherApp/detail.vue';
@@ -48,8 +47,6 @@
 
   const inputValue = ref<string>('');
   const isError = ref<boolean>(false);
-  // const currentMaxTemp = ref<string>('');
-  // const currentMinTemp = ref<string>('');
 
   const { isLoading } = storeToRefs(commonStore);
   const { detail } = storeToRefs(weatherStore);
@@ -133,7 +130,7 @@
     }
   };
 
-  const isShowResult = computed(() => {
+  const isShowResult = computed((): boolean => {
     const result: boolean =
       !isLoading.value && !isError.value && detail.value !== null;
     return result;
