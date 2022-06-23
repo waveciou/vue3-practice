@@ -1,6 +1,6 @@
 <template>
   <section
-    class="tw-p-3 mobile:tw-p-4 desktop:tw-p-5 tw-rounded-md tw-bg-white"
+    class="tw-p-3 tw-mb-8 mobile:tw-p-4 desktop:tw-p-5 tw-rounded-md tw-bg-white"
   >
     <div class="desktop:tw-flex desktop:tw-justify-between tw-mb-5">
       <div class="desktop:tw-flex-grow desktop:tw-basis-0 desktop:tw-pr-5">
@@ -52,18 +52,22 @@
         </div>
       </div>
     </div>
+
     <Forecast :list="weatherList" />
+
     <div className="desktop:tw-flex desktop:tw-justify-between">
       <div className="tw-mb-3 tw-pt-7 tw-relative desktop:tw-mb-0">
         <div
           className="tw-hidden tw-w-full tw-absolute tw-left-0 tw-top-0 real-desktop:tw-flex tw-justify-center tw-items-center"
         >
-          <span
-            v-if="currentMaxTemp !== ''"
-            className="tw-inline-block tw-py-0.5 tw-px-2 tw-text-xs tw-bg-black tw-text-white tw-rounded-md"
-          >
-            {{ currentMaxTemp }}
-          </span>
+          <transition name="fade" mode="out-in">
+            <span
+              v-if="currentMaxTemp !== ''"
+              className="tw-inline-block tw-py-0.5 tw-px-2 tw-text-xs tw-bg-black tw-text-white tw-rounded-md"
+            >
+              {{ currentMaxTemp }}
+            </span>
+          </transition>
         </div>
         <div @mouseleave="handleSetCurrentMaxTemp('')">
           <BarChart
@@ -86,12 +90,14 @@
         <div
           className="tw-hidden tw-w-full tw-absolute tw-left-0 tw-top-0 real-desktop:tw-flex tw-justify-center tw-items-center"
         >
-          <span
-            v-if="currentMinTemp !== ''"
-            className="tw-inline-block tw-py-0.5 tw-px-2 tw-text-xs tw-bg-black tw-text-white tw-rounded-md"
-          >
-            {{ currentMinTemp }}
-          </span>
+          <transition name="fade" mode="out-in">
+            <span
+              v-if="currentMinTemp !== ''"
+              className="tw-inline-block tw-py-0.5 tw-px-2 tw-text-xs tw-bg-black tw-text-white tw-rounded-md"
+            >
+              {{ currentMinTemp }}
+            </span>
+          </transition>
         </div>
         <div @mouseleave="handleSetCurrentMaxTemp('')">
           <BarChart
@@ -112,7 +118,7 @@
     </div>
 
     <div
-      className="tw-mt-10 tw-text-sm tw-font-bold tw-text-gray-dark tw-text-center"
+      className="tw-mt-10 tw-text-sm tw-font-bold tw-text-black tw-text-center"
     >
       All of time use UTC {{ utcTime > 0 ? `+${utcTime}` : utcTime }} time zone.
     </div>

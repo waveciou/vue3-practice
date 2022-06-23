@@ -21,6 +21,15 @@
     <transition name="fade" mode="out-in">
       <Detail v-if="isShowResult" />
     </transition>
+
+    <transition name="fade" mode="out-in">
+      <div
+        v-if="isNoResult"
+        className="tw-text-black tw-text-center tw-text-2xl tw-font-bold tw-break-words tw-my-20"
+      >
+        No Result
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -133,6 +142,11 @@
   const isShowResult = computed((): boolean => {
     const result: boolean =
       !isLoading.value && !isError.value && detail.value !== null;
+    return result;
+  });
+
+  const isNoResult = computed((): boolean => {
+    const result: boolean = !isLoading.value && isError.value;
     return result;
   });
 </script>

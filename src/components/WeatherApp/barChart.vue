@@ -113,7 +113,7 @@
       fill: $color-green;
       transition: fill 0.4s ease;
 
-      @media screen and (min-width: 1025px) {
+      @include min-width(1025px) {
         &:hover {
           fill: $color-black;
         }
