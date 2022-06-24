@@ -6,12 +6,14 @@
         class="tw-w-full tw-h-10 tw-py-1 tw-px-3 tw-m-0 tw-inline-block tw-relative tw-text-md tw-leading-8 tw-text-black tw-bg-white tw-border tw-border-white tw-border-solid tw-rounded tw-tracking-wide tw-grow tw-basis-0 tw-appearance-none"
         type="text"
         placeholder="Please Input Your Todo"
+        data-test="todo-input"
         @keyup.enter="handleAddTodo"
       />
       <button
         type="button"
         class="tw-h-10 tw-p-3 tw-leading-4 tw-text-white tw-bg-black tw-rounded tw-ml-3"
         title="Add Todo"
+        data-test="todo-submit-btn"
         @click.stop="handleAddTodo"
       >
         Add Todo
@@ -23,7 +25,7 @@
         :selected="selected"
         @select="handleSetSelected"
       />
-      <ul>
+      <ul data-test="todo-list">
         <li
           v-for="todoItem of contextTodolist"
           :key="todoItem.id"
