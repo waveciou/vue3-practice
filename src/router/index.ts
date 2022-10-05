@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import Home from '../components/Home.vue';
-import Todolist from '../components/Todolist/index.vue';
-import WeatherApp from '../components/WeatherApp/index.vue';
+import Home from '@/Components/Home.vue';
+import Todolist from '@/Components/Todolist/index.vue';
+import WeatherApp from '@/Components/WeatherApp/index.vue';
+import Popup from '@/Components/Popup/index.vue';
 
 const routes = [
   {
@@ -27,6 +28,14 @@ const routes = [
     component: WeatherApp,
     meta: {
       title: 'Weather App',
+    },
+  },
+  {
+    path: '/popup',
+    name: 'Popup',
+    component: Popup,
+    meta: {
+      title: 'Popup Component',
     },
   },
   // {

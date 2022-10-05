@@ -34,6 +34,22 @@
   opacity: 0;
 }
 
+// * Modal Animation
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+
+  .modal-container {
+    transform: scale(1.1);
+  }
+}
+
 .before-font-material::before,
 .after-font-material::after {
   @include font-material;
