@@ -11,6 +11,11 @@
           Weather App
         </router-link>
       </li>
+      <li>
+        <router-link class="tw-inline-block tw-text-lg" to="/popup">
+          Popup
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>
